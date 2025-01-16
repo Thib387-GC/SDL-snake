@@ -1,7 +1,7 @@
 #include "Snake.h"
 #include "Food.h"
 #include "ShapeRenderer.h"
-Snake::Snake(ShapeRenderer& _sr) : body({ sf::Vector2f(0,0) }), direction(0, 0), sr(_sr)
+Snake::Snake(ShapeRenderer& _sr) : body({ Vector2(0,0) }), direction(0, 0), sr(_sr)
 {
 }
 
@@ -14,23 +14,23 @@ void Snake::ProcessEvent(const SDL_Event& _event)
 		// test keycode
 		switch (_event.key.keysym.sym) {
 			case SDLK_LEFT:
-				direction = sf::Vector2f(-1, 0);
+				direction = Vector2(-1, 0);
 				break;
 			case SDLK_RIGHT:
-				direction = sf::Vector2f(1, 0);
+				direction = Vector2(1, 0);
 				break;
 			case SDLK_UP:
-				direction = sf::Vector2f(0, -1);
+				direction = Vector2(0, -1);
 				break;
 			case SDLK_DOWN:
-				direction = sf::Vector2f(0, 1);
+				direction = Vector2(0, 1);
 				break;
 		}
 	
 	}
 }
 
-const sf::Vector2f& Snake::GetNextPosition() const
+const Vector2& Snake::GetNextPosition() const
 {
 	return body[0] + direction;
 }
@@ -50,8 +50,8 @@ void Snake::Move()
 
 bool Snake::ProcessUpdate(Food& _food)
 {
-	if (direction.x != 0 || direction.y != 0) {
-		sf::Vector2f nextPosition = GetNextPosition();
+	if (direction.GetX() != 0 || direction.GetY() != 0) {
+		Vector2 nextPosition = GetNextPosition();
 		if (!IsPositionBody(nextPosition)) {
 			if (nextPosition == _food.GetPosition()) {
 				_food.GeneratePosition(*this);
@@ -66,21 +66,21 @@ bool Snake::ProcessUpdate(Food& _food)
 	return false;
 }
 
-bool Snake::IsPositionBody(const sf::Vector2f& _pos) const
+bool Snake::IsPositionBody(const Vector2& _pos) const
 {
 	return std::find(body.begin(), body.end(), _pos) != body.end();
 }
 
 void Snake::Draw()
 {
-	for (sf::Vector2f p : body) {
+	for (Vector2 p : body) {
 		SDL_Color color(0, 255, 0, 255);
-		sr.Update(p.x * 32.f,p.y*32.f,color);
+		sr.Update(p.GetX() * 32.f,p.GetY()*32.f,color);
 		sr.Draw();
 	}
 }
 
-const std::vector<sf::Vector2f>& Snake::GetBody() const
+const std::vector<Vector2>& Snake::GetBody() const
 {
 	return body;
 }

@@ -43,7 +43,7 @@ int main(int argc, char** args)
 	Snake snake(renderer);
 	Food food(snake, renderer);
 
-	float time_between_move = 0.1f;
+	float time_between_move = 0.2f;
 	float current_timer_between_move = 0.f;
 
 	bool gameover = false;
