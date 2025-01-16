@@ -11,8 +11,8 @@ ShapeRenderer::ShapeRenderer(SDL_Renderer& _renderer) :  renderer(_renderer)
 
 void ShapeRenderer::Update(const float _x, const float _y, const SDL_Color& _color)
 {
-	shape.x = _x;
-	shape.y = _y;
+	shape.x = 800/2 + _x;
+	shape.y = 600/2+_y;
 	SDL_SetRenderDrawColor(&renderer, _color.r,_color.g,_color.b,_color.a); // Set color to solid white
 
 }

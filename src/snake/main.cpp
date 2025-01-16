@@ -9,7 +9,8 @@
 #include <SDL2/SDL.h>
 using namespace std;
 
-
+int window_width = 800;
+int window_height = 600;
 int main(int argc, char** args)
 {
 	SDL_Surface* winSurface = NULL;
@@ -23,8 +24,7 @@ int main(int argc, char** args)
 		// End the program
 		return 1;
 	}
-	int window_width = 1280;
-	int window_height = 720;
+
 	window = SDL_CreateWindow("Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
 	if (!window) {
 		cout << "Error creating window: " << SDL_GetError() << endl;
@@ -36,16 +36,14 @@ int main(int argc, char** args)
 	_renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
 
 	int square_size = 32;
-	SDL_Rect viewport = { window_width / 2 - (square_size / 2), window_height / 2 - (square_size / 2), window_width, window_height };
 
 	// Définir la "zone de rendu" pour déplacer l'origine
-	SDL_RenderSetViewport(_renderer, &viewport);
 	ShapeRenderer renderer(*_renderer);
 	
 	Snake snake(renderer);
 	Food food(snake, renderer);
 
-	float time_between_move = 0.5f;
+	float time_between_move = 0.1f;
 	float current_timer_between_move = 0.f;
 
 	bool gameover = false;
